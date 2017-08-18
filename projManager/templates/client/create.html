@@ -1,0 +1,22 @@
+{% extends 'bases/base_admin.html' %}
+
+{% block title %} Project Manager {% endblock %}
+
+{% block scripts %}
+    {# Aqui colocaremos los scripts #}
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Registro">
+    </form>
+
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <p>Ya cuento con una <a href="{% url 'client:login' %}">cuenta</a></p>
+    </footer>
+{% endblock %}

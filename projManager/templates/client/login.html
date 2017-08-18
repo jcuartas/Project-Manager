@@ -1,0 +1,24 @@
+{% extends 'bases/base_admin.html' %}
+
+{% block title %} Project Manager {% endblock %}
+
+{% block scripts %}
+    {%load staticfiles%}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="" class="class_container_form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="ingreso">
+    </form>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <a href="#">Olvidé mi contraseña</a>
+        <p> Crea una nueva cuenta <a href="{% url 'client:create' %}">aquí</a></p>
+    </footer>
+{% endblock %}
+
