@@ -15,3 +15,7 @@ footer p {
     color: #888;
     font-size: 12px;
 }
+
+.errorlist li{
+    color: #CC6679;
+}

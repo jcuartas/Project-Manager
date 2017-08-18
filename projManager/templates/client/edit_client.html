@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Editar Cliente</title>
+</head>
+<body>
+    
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Actualizar">
+    </form>
+
+</body>
+</html>

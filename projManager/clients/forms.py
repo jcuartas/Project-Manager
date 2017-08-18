@@ -8,6 +8,7 @@ Created on Thu Aug 10 19:26:21 2017
 
 from django import forms
 from django.contrib.auth.models import User
+from .models import Client
 
 """
 Constants
@@ -35,16 +36,24 @@ class LoginUserForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         super(LoginUserForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update( {'class':'username_login'} )
-        self.fields['username'].widget.attrs.update( {'class':'password_login'} )
+        self.fields['username'].widget.attrs.update( {'id': 'username_login', 'class':'input_login'} )
+        self.fields['password'].widget.attrs.update( {'id': 'password_login', 'class':'input_login'} )
     
 class CreateUserForm(forms.ModelForm):
     username = forms.CharField( max_length = 20, error_messages = ERROR_MESSAGE_USER)
     password = forms.CharField( max_length = 20, widget = forms.PasswordInput(), error_messages = ERROR_MESSAGE_PASSWORD)
     email = forms.CharField(error_messages = ERROR_MESSAGE_EMAIL)
+
+    def __init__(self, *args, **kwargs):
+        super(CreateUserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update( {'id': 'username_create'} )
+        self.fields['password'].widget.attrs.update( {'id': 'password_create'} )
+        self.fields['email'].widget.attrs.update( {'id': 'email_create'} )
+
     class Meta:
         model = User
         fields = ('username', 'password', 'email')
+        
 
 class EditUserForm(forms.ModelForm):
     username = forms.CharField( max_length = 20, error_messages = ERROR_MESSAGE_USER)
@@ -73,4 +82,9 @@ class EditPasswordForm(forms.Form):
             raise forms.ValidationError('Nuevo pasword inválido')
         if password1 != password2:
             raise forms.ValidationError('Los password no son los mismos')
-    
+ 
+class EditClientForm(forms.ModelForm):
+    class Meta:
+        model = Client
+#         fields = ('bio', 'job')
+        exclude = ['user']

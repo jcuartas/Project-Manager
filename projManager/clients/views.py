@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from .models import Client
 
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -7,6 +8,7 @@ from clients.forms import LoginUserForm
 from clients.forms import CreateUserForm
 from clients.forms import EditUserForm
 from clients.forms import EditPasswordForm
+from clients.forms import EditClientForm
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
@@ -137,6 +139,21 @@ def logout(request):
     logout_django(request)
     return redirect('client:login')
 
+@login_required( login_url = 'client:login' )
+def edit_client(request):
+    form = EditClientForm( request.POST or None, instance = client_instance(request.user) )
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos actualizados correctamente')
+    context = {'form':form}
+    return render(request, 'client/edit_client.html', context)
+
+def client_instance(user):
+    try:
+        return user.client
+    except:
+        return Client(user = user)
 #def login(request):
 #    if request.user.is_authenticated():
 #        return redirect('client:dashboard')

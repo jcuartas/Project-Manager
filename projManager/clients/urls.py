@@ -14,6 +14,7 @@ from clients.views import DashboardClass
 from clients.views import CreateClass
 from clients.views import EditClass
 from clients.views import edit_password
+from clients.views import edit_client
 
 app_name = 'client'
 
@@ -25,5 +26,6 @@ urlpatterns = [
     url(r'^dashboard/$', DashboardClass.as_view(), name = 'dashboard'),
     url(r'^create/$', CreateClass.as_view(), name = 'create'),
     url(r'^edit/$', EditClass.as_view(), name = 'edit'),
-    url(r'^edit_password/$', edit_password, name = 'edit_password'),          
+    url(r'^edit_password/$', edit_password, name = 'edit_password'),
+    url(r'^edit_client/$', edit_client, name = 'edit_client'),          
 ]
